@@ -1,0 +1,61 @@
+Parkinsons-Disease-Detection-main
+├── backend
+│   ├── __pycache__/
+│   ├── .ipynb_checkpoints/
+│   ├── .venv/
+│   ├── app.py
+│   ├── Parkinson's Disease Detection.ipynb
+│   ├── parkinsonsdisease_model.pkl
+│   ├── parkinsons.data
+│   ├── requirements.txt
+│   ├── scaler_file.pkl
+│   ├── support-vector-machine-1.png
+│   ├── svm.png
+│
+├── frontend
+│   ├── public/
+│   │   ├── favicon.ico
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   │
+│   ├── src/
+│   │   ├── Assets/
+│   │   │   ├── bg.jpg
+│   │   │   ├── park.png
+│   │   │   ├── parkk.png
+│   │   │   └── symtoms.jpg
+│   │   │
+│   │   ├── Components/
+│   │   │   ├── Layout/
+│   │   │   ├── LandingPage.jsx
+│   │   │   └── NotFound.jsx
+│   │   │
+│   │   ├── redux/
+│   │   │   ├── resultSlice.js
+│   │   │   └── store.js
+│   │   │
+│   │   ├── Styles/
+│   │   │   ├── landingPage.css
+│   │   │   ├── layout.css
+│   │   │   ├── notfound.css
+│   │   │   └── App.css
+│   │   │
+│   │   ├── App.js
+│   │   ├── App.test.js
+│   │   ├── index.css
+│   │   ├── index.js
+│   │   ├── logo.svg
+│   │   ├── reportWebVitals.js
+│   │   └── setupTests.js
+│   │
+│   ├── .env
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
+│
+├── .gitignore
+│
+└── README.md
