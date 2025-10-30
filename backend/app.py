@@ -109,13 +109,14 @@
 
 
 
-
+import os
+import logging
+import pickle
+import numpy as np
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import numpy as np
-import pickle
-import logging
+import uvicorn
 
 # ===============================
 # Setup Logging
@@ -131,13 +132,13 @@ app = FastAPI()
 # Allowed Origins (Frontend URLs)
 # ===============================
 origins = [
-    "https://parkinson-s-disease-inky.vercel.app",  # your deployed frontend
+    "https://parkinson-s-disease-inky.vercel.app",  # deployed frontend
     "http://localhost:3000",  # for local testing
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,           # restrict to specific domains
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -187,7 +188,6 @@ class ParkinsonModel(BaseModel):
 # ===============================
 # Routes
 # ===============================
-
 @app.get("/")
 async def welcome():
     logging.info("GET / request received.")
@@ -203,7 +203,6 @@ async def park_disease(parkDiseaseParameter: ParkinsonModel, request: Request):
     logging.info(f"Request origin: {request.client.host}")
 
     try:
-        # Extract input data
         pred_data = (
             parkDiseaseParameter.mdvpFo,
             parkDiseaseParameter.mdvpFhi,
@@ -229,19 +228,15 @@ async def park_disease(parkDiseaseParameter: ParkinsonModel, request: Request):
             parkDiseaseParameter.PPE
         )
 
-        logging.info("Input data received successfully.")
-        logging.debug(f"Raw input: {pred_data}")
-
-        # Convert to numpy array and standardize
+        logging.info("✅ Input data received successfully.")
         pred_data_as_numpy_array = np.asarray(pred_data).reshape(1, -1)
-        logging.info("Reshaped input for model prediction.")
+        logging.info("✅ Reshaped input for model prediction.")
 
         standard_pred_data = scaler.transform(pred_data_as_numpy_array)
-        logging.info("Data scaled successfully.")
+        logging.info("✅ Data scaled successfully.")
 
-        # Prediction
         prediction = model.predict(standard_pred_data)
-        logging.info(f"Prediction result: {prediction}")
+        logging.info(f"✅ Prediction result: {prediction}")
 
         prediction_msg = (
             "✅ The person does not have Parkinson's disease."
@@ -263,3 +258,12 @@ async def park_disease(parkDiseaseParameter: ParkinsonModel, request: Request):
             "message": "Internal Server Error while processing prediction."
         }
 
+
+# ===============================
+# Run the App (for Railway)
+# ===============================
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    logging.info(f"🚀 Starting server on port {port}")
+    print(f"🚀 Starting server on port {port}")
+    uvicorn.run("app:app", host="0.0.0.0", port=port)
