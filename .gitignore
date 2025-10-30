@@ -63,6 +63,8 @@ backend/*.db
 
 # Machine learning models / large files
 backend/*.pkl
+!backend/parkinsondisease_model.pkl
+!backend/scaler_file.pkl
 backend/*.h5
 backend/*.pt
 backend/*.joblib

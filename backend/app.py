@@ -6,11 +6,25 @@ import pickle
 
 app = FastAPI()
 
-origins = ["*"]
+
 
 model = pickle.load(open('parkinsondisease_model.pkl', 'rb'))
 
 scaler = pickle.load(open('scaler_file.pkl', 'rb'))
+
+# origins = ["*"]
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+
+origins = [
+    "https://parkinson-s-disease-inky.vercel.app",
+    "http://localhost:3000",  # optional for local testing
+]
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,6 +33,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class ParkinsonModel(BaseModel):
     mdvpFo: float
