@@ -1,5 +1,5 @@
 fastapi
-numpy
-pydantic
-scikit-learn
 uvicorn
+numpy
+scikit-learn==1.2.2
+pydantic
